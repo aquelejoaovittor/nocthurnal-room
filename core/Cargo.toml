@@ -15,5 +15,5 @@ chrono     = { version = "0.4", features = ["serde"] }
 thiserror  = "1"
 
 [dev-dependencies]
-jsonschema = "0.17"
+jsonschema = { version = "0.17", features = ["draft202012"] }
 tempfile   = "3"

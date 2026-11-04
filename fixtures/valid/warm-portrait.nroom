@@ -1,0 +1,14 @@
+{
+  "format": "nroom",
+  "format_version": "1.0.0",
+  "id": "22222222-2222-4222-8222-222222222222",
+  "name": "Warm Portrait",
+  "author": "Orbyte Studio © João Souza & Henrique Santos",
+  "category": "portrait",
+  "tags": ["warm", "portrait", "soft"],
+  "parameters": {
+    "basic":   { "exposure": 0.15, "contrast": 8, "shadows": 20 },
+    "color":   { "temperature": 5800, "tint": 4, "vibrance": 12 },
+    "effects": { "clarity": -8, "vignette_amount": -12 }
+  }
+}
