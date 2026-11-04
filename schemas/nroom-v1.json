@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nocthurnalroom.app/schemas/nroom-v1.json",
+  "title": "Nocthurnal Room Preset v1",
+  "description": "Formato nativo de preset do Nocthurnal Room. Copyright (C) 2025 Orbyte Studio — João Souza & Henrique Santos. Licença: AGPL-3.0-or-later.",
+  "type": "object",
+  "required": ["format", "format_version", "id", "name", "parameters"],
+  "additionalProperties": false,
+  "properties": {
+    "format":         { "const": "nroom" },
+    "format_version": { "type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$" },
+    "id":             { "type": "string", "format": "uuid" },
+    "name":           { "type": "string", "minLength": 1, "maxLength": 200 },
+    "author":         { "type": "string", "maxLength": 200 },
+    "description":    { "type": "string", "maxLength": 4000 },
+    "category":       { "type": "string", "maxLength": 100 },
+    "tags":           { "type": "array", "maxItems": 50,
+                        "items": { "type": "string", "maxLength": 50 } },
+    "created_at":     { "type": "string", "format": "date-time" },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min_app_version": { "type": "string" },
+        "requires_masks":  { "type": "boolean" },
+        "requires_lut":    { "type": "boolean" }
+      }
+    },
+    "parameters":     { "$ref": "#/$defs/EditParameters" },
+    "external_refs": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "required": ["type", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "type":   { "enum": ["lut", "camera_profile", "icc_profile"] },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "name":   { "type": "string", "maxLength": 200 }
+        }
+      }
+    },
+    "metadata": { "type": "object" }
+  },
+  "$defs": {
+    "EditParameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "basic":        { "$ref": "#/$defs/Basic" },
+        "tone_curve":   { "$ref": "#/$defs/ToneCurve" },
+        "color":        { "$ref": "#/$defs/Color" },
+        "split_toning": { "$ref": "#/$defs/SplitToning" },
+        "effects":      { "$ref": "#/$defs/Effects" },
+        "detail":       { "$ref": "#/$defs/Detail" }
+      }
+    },
+    "Basic": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "exposure":   { "type": "number",  "minimum": -5,   "maximum": 5   },
+        "contrast":   { "type": "integer", "minimum": -100, "maximum": 100 },
+        "highlights": { "type": "integer", "minimum": -100, "maximum": 100 },
+        "shadows":    { "type": "integer", "minimum": -100, "maximum": 100 },
+        "whites":     { "type": "integer", "minimum": -100, "maximum": 100 },
+        "blacks":     { "type": "integer", "minimum": -100, "maximum": 100 }
+      }
+    },
+    "ToneCurve": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "parametric":  { "$ref": "#/$defs/ParametricCurve" },
+        "point_curve": {
+          "type": "array", "maxItems": 512,
+          "items": {
+            "type": "array", "minItems": 2, "maxItems": 2,
+            "items": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    },
+    "ParametricCurve": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "shadows":    { "type": "number", "minimum": -1, "maximum": 1 },
+        "darks":      { "type": "number", "minimum": -1, "maximum": 1 },
+        "lights":     { "type": "number", "minimum": -1, "maximum": 1 },
+        "highlights": { "type": "number", "minimum": -1, "maximum": 1 }
+      }
+    },
+    "Color": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "temperature": { "type": "integer", "minimum": 2000, "maximum": 50000 },
+        "tint":        { "type": "integer", "minimum": -150, "maximum": 150 },
+        "vibrance":    { "type": "integer", "minimum": -100, "maximum": 100 },
+        "saturation":  { "type": "integer", "minimum": -100, "maximum": 100 },
+        "hsl": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "hue":        { "$ref": "#/$defs/HSLChannels" },
+            "saturation": { "$ref": "#/$defs/HSLChannels" },
+            "luminance":  { "$ref": "#/$defs/HSLChannels" }
+          }
+        }
+      }
+    },
+    "HSLChannels": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "red":     { "type": "integer", "minimum": -100, "maximum": 100 },
+        "orange":  { "type": "integer", "minimum": -100, "maximum": 100 },
+        "yellow":  { "type": "integer", "minimum": -100, "maximum": 100 },
+        "green":   { "type": "integer", "minimum": -100, "maximum": 100 },
+        "aqua":    { "type": "integer", "minimum": -100, "maximum": 100 },
+        "blue":    { "type": "integer", "minimum": -100, "maximum": 100 },
+        "purple":  { "type": "integer", "minimum": -100, "maximum": 100 },
+        "magenta": { "type": "integer", "minimum": -100, "maximum": 100 }
+      }
+    },
+    "SplitToning": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "shadows":    { "$ref": "#/$defs/ToneTint" },
+        "highlights": { "$ref": "#/$defs/ToneTint" },
+        "balance":    { "type": "integer", "minimum": -100, "maximum": 100 }
+      }
+    },
+    "ToneTint": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "hue":        { "type": "integer", "minimum": 0, "maximum": 359 },
+        "saturation": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "Effects": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "clarity":           { "type": "integer", "minimum": -100, "maximum": 100 },
+        "dehaze":            { "type": "integer", "minimum": -100, "maximum": 100 },
+        "vignette_amount":   { "type": "integer", "minimum": -100, "maximum": 100 },
+        "vignette_midpoint": { "type": "integer", "minimum": 0,    "maximum": 100 },
+        "vignette_feather":  { "type": "integer", "minimum": 0,    "maximum": 100 },
+        "grain_amount":      { "type": "integer", "minimum": 0,    "maximum": 100 },
+        "grain_size":        { "type": "integer", "minimum": 0,    "maximum": 100 }
+      }
+    },
+    "Detail": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "sharpening_amount": { "type": "integer", "minimum": 0,   "maximum": 150 },
+        "sharpening_radius": { "type": "number",  "minimum": 0.5, "maximum": 3.0 },
+        "sharpening_detail": { "type": "integer", "minimum": 0,   "maximum": 100 },
+        "luminance_noise":   { "type": "integer", "minimum": 0,   "maximum": 100 },
+        "color_noise":       { "type": "integer", "minimum": 0,   "maximum": 100 }
+      }
+    }
+  }
+}
