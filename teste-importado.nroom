@@ -1,0 +1,20 @@
+{
+  "format": "nroom",
+  "format_version": "1.0.0",
+  "id": "1f82d5c1-c84e-4d27-b2e6-6785242b87ae",
+  "name": "Importado do Lightroom",
+  "author": "Orbyte Studio © João Souza & Henrique Santos",
+  "created_at": "2026-11-04T23:09:35.138260583Z",
+  "parameters": {
+    "basic": {
+      "exposure": 0.5,
+      "contrast": 15
+    },
+    "color": {
+      "temperature": 5800
+    },
+    "effects": {
+      "clarity": 10
+    }
+  }
+}
