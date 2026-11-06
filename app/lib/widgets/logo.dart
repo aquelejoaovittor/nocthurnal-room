@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 
 class NoctharLogo extends StatelessWidget {
-  final double size;
-  const NoctharLogo({super.key, this.size = 24});
+  const NoctharLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.camera, size: size, color: const Color(0xFF9D4EDD)),
+        Icon(Icons.camera, color: const Color(0xFF9D4EDD), size: 20),
         const SizedBox(width: 8),
-        Text(
+        const Text(
           'NOCTHURNAL ROOM',
-          style: TextStyle(
-            fontSize: size * 0.6,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 2.5,
-            color: Colors.white,
-          ),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 2),
         ),
       ],
     );

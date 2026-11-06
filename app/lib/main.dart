@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/editor_screen.dart';
+import 'screens/workspace_screen.dart';
 
 void main() {
   runApp(const NocthurnalRoomApp());
@@ -16,20 +16,21 @@ class NocthurnalRoomApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF181818),
-        canvasColor: const Color(0xFF202020),
-        dividerColor: const Color(0xFF2C2C2C),
+        canvasColor: const Color(0xFF1A1A1A),
+        dividerColor: const Color(0xFF333333),
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFF9D4EDD),
           secondary: Color(0xFF00E5FF),
-          surface: Color(0xFF282828),
+          surface: Color(0xFF252525),
         ),
         sliderTheme: const SliderThemeData(
-          activeTrackColor: Color(0xFF9D4EDD),
+          activeTrackColor: Color(0xFF888888),
           thumbColor: Colors.white,
-          inactiveTrackColor: Color(0xFF444444),
+          inactiveTrackColor: Color(0xFF333333),
+          trackHeight: 2,
         ),
       ),
-      home: const EditorScreen(),
+      home: const WorkspaceScreen(),
     );
   }
 }
